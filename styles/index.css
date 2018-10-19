@@ -30,6 +30,13 @@ header nav a{
     color: black;
 }
 
+header nav li:hover{
+    color: #3474e4;
+    transform: scale(1.5);
+    transition: transform 0.25s;
+    
+}
+
 .landing{
     width: 100%;
     min-height: 300px;
@@ -58,19 +65,23 @@ header nav a{
     padding: 0 0 10px 20px;
 }
 
+.landing form input{
+    border-radius: 10%;
+}
+
 .gallery{
     width: 100%;
     min-height: 300px;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .gallery img{
     height: 80%;
-    width: 45%;
+    width: 80%;
     margin: 10px 5px;
 }
 
@@ -92,6 +103,37 @@ header nav a{
 }
 
 footer{
-    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
     min-height: 100px;
 }
+.contact {
+    display: inherit;
+    width: 100%;
+    justify-content:space-evenly;
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.contact li a{
+    font-size: 36px;
+    padding: 5px 10px;
+    color: black;
+}
+
+.contact i:hover{
+    color: #3474e4;
+    transform: scale(1.5);
+    transition: transform 0.25s;
+}
+
+footer p{
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    color: rgb(198, 198, 198);
+}
+

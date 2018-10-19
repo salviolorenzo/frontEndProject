@@ -3,6 +3,8 @@ const landingImage = document.querySelector('[data-landing]');
 const gallery = document.querySelector('[data-gallery]');
 const body = document.querySelector('body');
 const urls = [];
+const longitudes = [];
+const latitudes = [];
 const searchForm = document.querySelector('[data-form]');
 // logic for interactive photo gallery
 // let userSearch = prompt('What would you  like to see? ');
@@ -13,11 +15,16 @@ const searchForm = document.querySelector('[data-form]');
 function getUrls(obj){
     for (item of obj.results){
         urls.push(item.urls.raw);
+        if (item.hasOwnProperty(location)){
+            latitudes.push(item.location.latitude);
+            longitudes.push(item.location.longitude);
+        }
     }
     return obj.results;
 }
 
 function drawImages(){
+    gallery.innerHTML = '';
     for(imageSrc of urls){
         let img = document.createElement('img');
         img.setAttribute('src', imageSrc);
