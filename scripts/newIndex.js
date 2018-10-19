@@ -1,7 +1,8 @@
 // get photos by search ==>
 // extract IDs ==>
+// display to screen in scrollable gallery // 20 photos per search
 // get location and meta data ==>
-// place point on map and display weather ==>
+// when image is clicked ==> place point on map and display weather ==>
 // show location info?
 
 const mapConatiner = document.querySelector("[data-map]");
