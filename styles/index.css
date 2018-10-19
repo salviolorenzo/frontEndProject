@@ -7,12 +7,27 @@ html, body{
 }
 body *{
     box-sizing: inherit;
-    outline: 1px solid black;
+    /* outline: 1px solid black; */
+    font-family: 'Krub', sans-serif;
 }
 
 header{
     width: 100%;
     min-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+header nav{
+    display: flex;
+    list-style-type: none;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+header nav a{
+    text-decoration: none;
+    color: black;
 }
 
 .landing{
@@ -22,23 +37,41 @@ header{
     background-position: center;
     background-size: cover;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-end;
     color: white;
     text-align: center;
+}
+
+.landing  h1{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 50px;
+}
+
+.landing form{
+    /* height: 100%; */
+    width:60%;
+    display: flex;
+    padding: 0 0 10px 20px;
 }
 
 .gallery{
     width: 100%;
     min-height: 300px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
     
 }
 
 .gallery img{
-    width: 20%;
+    height: 80%;
+    width: 45%;
+    margin: 10px 5px;
 }
 
 .map-weather{

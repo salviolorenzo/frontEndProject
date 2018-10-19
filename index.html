@@ -5,16 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PhotoSpotter</title>
+    <link href="https://fonts.googleapis.com/css?family=Krub" rel="stylesheet">
     <link rel="stylesheet" href="styles/index.css">
 </head>
 <body>
     <header>
         <!-- Place a simple nav here -->
+        <nav>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Map</a></li>
+            <li><a href="#">Weather</a></li>
+        </nav>
     </header>
 
     <section class="landing" data-landing>
-        <h2>Photo<br>Spotter</h2>
+        <h1>Photo<br>Spotter</h1>
         <!-- Landing photo with name/logo -->
+        <form action="" method="GET" data-form>
+            <label>
+                <input type="text" name="search" placeholder="Search" >
+                <input type="submit" name="submit" id="">
+            </label>
+        </form>
     </section>
 
     <section class="gallery" data-gallery>
