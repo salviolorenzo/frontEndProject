@@ -5,7 +5,7 @@
 // when image is clicked ==> place point on map and display weather ==>
 // show location info?
 
-const mapConatiner = document.querySelector("[data-map]");
+const mapContainer = document.querySelector("[data-map]");
 
 // get collection of photos using flickr.photos.search
 // const searchUrl = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${flickKey}&text=${userSearch}&format=json&nojsoncallback=1`;
@@ -95,7 +95,14 @@ function drawImages(arr) {
 
 
 // creating first map instance
-// const map = new google.maps.Map(mapContainer, {
-// 	center: { lat: -34.397, lng: 150.644 },
-// 	zoom: 8
-// });
+
+function initMap() {
+	let map = new google.maps.Map(mapContainer, {
+		center: { lat: -34.397, lng: 150.644 },
+		zoom: 8,
+		// mapTypeId: 'satellite'
+	});
+
+}
+console.log(initMap());
+
