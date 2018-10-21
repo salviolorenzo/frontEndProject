@@ -30,27 +30,26 @@ const mapContainer = document.querySelector("[data-map]");
 
 function getPhotos(userSearch) {
 	fetch(
-		`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${flickKey}&text=${userSearch}&accuracy=16&sort=interestingness_desc&format=json&nojsoncallback=1`
+		`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${flickKey}&text=${userSearch}&sort=interestingness-desc&privacy_filter=1&accuracy=16+&has_geo=1&format=json&nojsoncallback=1`
 	)
 		.then(r => r.json())
 		.then(j => j.photos)
 		.then(getPhotoStats)
-		.then(drawImages);
+		.then(getLocation)
+		.then(console.log);
 }
 
-function handleSubmit(event) {
-	event.preventDefault();
-	console.log("Submit successful.");
-	let inputs = event.target.elements;
-	let userSearch = inputs.search.value;
-	// gallery.classList.remove("gallery-hidden");
-	// mapSection.classList.remove("map-weather-hidden");
-	getPhotos(userSearch);
-}
-const searchForm = document.querySelector("[data-form]");
 
-searchForm.addEventListener("submit", handleSubmit);
 
+// function handleSubmit(event) {
+// 	event.preventDefault();
+// 	console.log("Submit successful.");
+// 	let inputs = event.target.elements;
+// 	let userSearch = inputs.search.value;
+// 	// gallery.classList.remove("gallery-hidden");
+// 	// mapSection.classList.remove("map-weather-hidden");
+// 	getPhotos(userSearch);
+// }
 
 // takes original object, return array of objects photo id and image url
 function getPhotoStats(obj) {
@@ -66,6 +65,18 @@ function getPhotoStats(obj) {
 	return statArray;
 }
 
+
+function getLocation(array) {
+	for (object of array) {
+		fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=${flickKey}&photo_id=${object.id}&format=json&nojsoncallback=1`)
+			// .then(r => r.json())
+			.then(r => r.photo.location.longitude)
+
+
+	}
+	return array;
+}
+
 const img = document.querySelector("[data-image]");
 const modal = document.querySelector("[data-modal]");
 const gallery = document.querySelector("[data-gallery]");
@@ -79,30 +90,23 @@ function drawImages(arr) {
 	}
 }
 
-// function getLocation(arr) {
-// 	for (object of arr) {
-// 		fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=${flickKey}&photo_id=${object.id}&format=json&nojsoncallback=1`)
-// 			// .then(r => r.json())
-// 			.then(k => k.location)
-// 			.then(x => {
-// 				object.location = { obj.long }
-// 			});
-// 		debugger;
+const searchForm = document.querySelector("[data-form]");
+// searchForm.addEventListener("submit", handleSubmit);
 
-// 	}
-// }
+
 
 
 
 // creating first map instance
 
-function initMap() {
-	let map = new google.maps.Map(mapContainer, {
-		center: { lat: -34.397, lng: 150.644 },
-		zoom: 8,
-		// mapTypeId: 'satellite'
-	});
+// function initMap() {
+// 	let map = new google.maps.Map(mapContainer, {
+// 		center: { lat: -34.397, lng: 150.644 },
+// 		zoom: 8,
+// 		// mapTypeId: 'satellite'
+// 	});
 
-}
-console.log(initMap());
+// }
+// console.log(initMap());
 
+getPhotos('city');
