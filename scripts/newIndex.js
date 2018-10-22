@@ -81,7 +81,7 @@ function getPhotoStats(obj) {
 			});
 			console.log(statArray);
 			return statArray;
-		})
+		});
 }
 
 
