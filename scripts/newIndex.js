@@ -17,16 +17,16 @@ const mapContainer = document.querySelector("[data-map]");
 // get MetaData
 // const exifUrl = `https://api.flickr.com/services/rest/?method=flickr.photos.getExif&api_key=${flickKey}&photo_id=${photoID}&format=json&nojsoncallback=1`;
 
-// function handleSubmit(event) {
-// 	event.preventDefault();
-// 	console.log("Submit successful.");
-// 	let inputs = event.target.elements;
-// 	let userSearch = inputs.search.value;
-// 	// gallery.classList.remove("gallery-hidden");
-// 	// mapSection.classList.remove("map-weather-hidden");
-// 	getPhotos(userSearch);
-// }
-;
+function handleSubmit(event) {
+	event.preventDefault();
+	console.log("Submit successful.");
+	let inputs = event.target.elements;
+	let userSearch = inputs.search.value;
+	// gallery.classList.remove("gallery-hidden");
+	// mapSection.classList.remove("map-weather-hidden");
+	getPhotos(userSearch);
+}
+
 
 function getPhotos(userSearch) {
 	fetch(
@@ -35,8 +35,7 @@ function getPhotos(userSearch) {
 		.then(r => r.json())
 		.then(j => j.photos)
 		.then(getPhotoStats)
-		.then(getLocation)
-		.then(console.log);
+		.then(drawImages);
 }
 
 
@@ -52,30 +51,48 @@ function getPhotos(userSearch) {
 // }
 
 // takes original object, return array of objects photo id and image url
+// gets location as promises
+function getLocation(object) {
+	return fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=${flickKey}&photo_id=${object.id}&format=json&nojsoncallback=1`)
+		.then(r => r.json())
+		.then(k => k.photo.location);
+
+}
+
+// gets images and assigns locations 
 function getPhotoStats(obj) {
 	let imagesArray = obj.photo;
 	let statArray = [];
+	let locationPromises = [];
 	for (image of imagesArray) {
 		let imageObj = {
 			'id': image.id,
-			'src': `https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}.jpg`
+			'src': `https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}.jpg`,
 		};
+		let locationPromise = getLocation(image);
+		locationPromises.push(locationPromise);
+		// imageObj['location']
 		statArray.push(imageObj);
 	}
-	return statArray;
+	return Promise.all(locationPromises)
+		.then(locationArray => {
+			locationArray.forEach(function (loc, index) {
+				statArray[index]['location'] = loc;
+			});
+			console.log(statArray);
+			return statArray;
+		})
 }
 
 
-function getLocation(array) {
-	for (object of array) {
-		fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=${flickKey}&photo_id=${object.id}&format=json&nojsoncallback=1`)
-			// .then(r => r.json())
-			.then(r => r.photo.location.longitude)
 
 
-	}
-	return array;
-}
+
+// function locate(array) {
+// 	for (object of array) {
+// 		object.location = getLocation(object);
+// 	}
+// }
 
 const img = document.querySelector("[data-image]");
 const modal = document.querySelector("[data-modal]");
@@ -91,7 +108,7 @@ function drawImages(arr) {
 }
 
 const searchForm = document.querySelector("[data-form]");
-// searchForm.addEventListener("submit", handleSubmit);
+searchForm.addEventListener("submit", handleSubmit);
 
 
 
@@ -108,5 +125,3 @@ const searchForm = document.querySelector("[data-form]");
 
 // }
 // console.log(initMap());
-
-getPhotos('city');
