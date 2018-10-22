@@ -97,23 +97,30 @@ function drawImages(arr) {
 		let image = document.createElement('img');
 		let index = arr.indexOf(obj);
 		image.setAttribute('src', arr[index].src);
+		image.addEventListener('click', initMap(obj));
 		gallery.appendChild(image);
 	}
+	return arr;
 }
 
 let map;
+let marker;
 function initMap() {
 	map = new google.maps.Map(mapContainer, {
-		center: { lat: -34.397, lng: 150.644 },
-		zoom: 8
+		center: { lat: 33.749, lng: -84.388 },
+		zoom: 7
 	});
+
+
+
+	marker = new google.maps.Marker({
+		position: { lat: 33.749, lng: -84.388 },
+		map: map
+	});
+
 }
 
-function addMarker(object) {
-	let LatLng = {
-		'lat': object.location.latitude,
-		'long': object.location.longitude
-	};
-	map.center = LatLng;
-	map.zoom = 8;
-}
+
+
+
+
