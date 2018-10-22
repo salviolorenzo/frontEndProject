@@ -1,3 +1,7 @@
+// ====================================
+// FIRST DRAFT
+// NO LONGER BEING USED
+// ====================================
 // change landing photo on click
 const landingImage = document.querySelector("[data-landing]");
 const gallery = document.querySelector("[data-gallery]");
@@ -58,7 +62,7 @@ function goLeft() {
 
 left.addEventListener("click", goLeft);
 right.addEventListener("click", goRight);
-window.addEventListener("keydown", function(event) {
+window.addEventListener("keydown", function (event) {
 	if (event.keyCode === 37) {
 		goLeft();
 	}

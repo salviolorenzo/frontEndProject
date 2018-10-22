@@ -5,18 +5,27 @@
 // when image is clicked ==> place point on map and display weather ==>
 // show location info?
 
+// search variable
+const searchForm = document.querySelector("[data-form]");
+
+// image related variables
+const img = document.querySelector("[data-image]");
+const modal = document.querySelector("[data-modal]");
+const gallery = document.querySelector("[data-gallery]");
+
+// map variable
 const mapContainer = document.querySelector("[data-map]");
 
-// get collection of photos using flickr.photos.search
 // const searchUrl = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${flickKey}&text=${userSearch}&format=json&nojsoncallback=1`;
-// push IDs to an array
-// IDs = obj.photos[index].id;
 // Photo source URL = https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
-//  geolocation
 // const geoUrl = `https://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=${flickKey}&photo_id=${photoID}&format=json&nojsoncallback=1&auth_token=72157702427492494-a9c8f90feb96e087&api_sig=bd0421e2863ae103eb5608fabb9a70dd`;
 // get MetaData
 // const exifUrl = `https://api.flickr.com/services/rest/?method=flickr.photos.getExif&api_key=${flickKey}&photo_id=${photoID}&format=json&nojsoncallback=1`;
 
+
+// ===================================
+// What to do when the search for is submitted
+// ===================================
 function handleSubmit(event) {
 	event.preventDefault();
 	console.log("Submit successful.");
@@ -27,6 +36,11 @@ function handleSubmit(event) {
 	getPhotos(userSearch);
 }
 
+searchForm.addEventListener("submit", handleSubmit);
+
+// ===================================
+// retrieves images, calls functions to manipulate data and draw to screen
+// ===================================
 
 function getPhotos(userSearch) {
 	fetch(
@@ -40,26 +54,19 @@ function getPhotos(userSearch) {
 
 
 
-// function handleSubmit(event) {
-// 	event.preventDefault();
-// 	console.log("Submit successful.");
-// 	let inputs = event.target.elements;
-// 	let userSearch = inputs.search.value;
-// 	// gallery.classList.remove("gallery-hidden");
-// 	// mapSection.classList.remove("map-weather-hidden");
-// 	getPhotos(userSearch);
-// }
-
-// takes original object, return array of objects photo id and image url
+// ===================================
 // gets location as promises
+// ===================================
 function getLocation(object) {
 	return fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=${flickKey}&photo_id=${object.id}&format=json&nojsoncallback=1`)
 		.then(r => r.json())
 		.then(k => k.photo.location);
 
 }
-
+// ===================================
 // gets images and assigns locations 
+// ===================================
+
 function getPhotoStats(obj) {
 	let imagesArray = obj.photo;
 	let statArray = [];
@@ -85,19 +92,6 @@ function getPhotoStats(obj) {
 }
 
 
-
-
-
-// function locate(array) {
-// 	for (object of array) {
-// 		object.location = getLocation(object);
-// 	}
-// }
-
-const img = document.querySelector("[data-image]");
-const modal = document.querySelector("[data-modal]");
-const gallery = document.querySelector("[data-gallery]");
-
 function drawImages(arr) {
 	for (obj of arr) {
 		let image = document.createElement('img');
@@ -107,21 +101,4 @@ function drawImages(arr) {
 	}
 }
 
-const searchForm = document.querySelector("[data-form]");
-searchForm.addEventListener("submit", handleSubmit);
 
-
-
-
-
-// creating first map instance
-
-// function initMap() {
-// 	let map = new google.maps.Map(mapContainer, {
-// 		center: { lat: -34.397, lng: 150.644 },
-// 		zoom: 8,
-// 		// mapTypeId: 'satellite'
-// 	});
-
-// }
-// console.log(initMap());

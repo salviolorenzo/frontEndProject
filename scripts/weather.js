@@ -1,5 +1,7 @@
 // logic for weather component
-// not refactored or tailored for receiving input
+// ====================================
+// NOT REFACTORED FOR USE IN THIS PROJECT
+// ====================================
 
 const userCity = "atlanta";
 let url = `http://api.openweathermap.org/data/2.5/weather?q=${userCity}&APPID=${OWKey}`;
@@ -21,11 +23,19 @@ const cityName = document.querySelector("[data-name]");
 const weatherCond = document.querySelector("[data-weather]");
 const widget = document.querySelector("[data-widget]");
 
+// ====================================
+// GET CITY NAME
+// ====================================
+
 function drawName(obj) {
 	cityName.textContent = obj.name;
 	localStorage.setItem("cityName", obj.name);
 	return obj;
 }
+
+// ====================================
+// GET TEMPERATURE
+// ====================================
 
 function drawTemp(obj) {
 	let temperature = document.createElement("li");
@@ -37,6 +47,10 @@ function drawTemp(obj) {
 	return obj;
 }
 
+// ====================================
+// GET PRESSURE
+// ====================================
+
 function drawPress(obj) {
 	let pressure = document.createElement("li");
 	localStorage.setItem("pressure", obj.main.pressure);
@@ -44,6 +58,10 @@ function drawPress(obj) {
 	display.appendChild(pressure);
 	return obj;
 }
+
+// ====================================
+// GET HUMIDITY
+// ====================================
 
 function drawHum(obj) {
 	let humidity = document.createElement("li");
@@ -53,6 +71,10 @@ function drawHum(obj) {
 	return obj;
 }
 
+
+// ====================================
+// DRAW WEATHER ICONS AND OVERALL WEATHER CONDITION
+// ====================================
 function weather(obj) {
 	let weatherObj = obj.weather[0];
 	let img = document.createElement("img");
@@ -64,6 +86,10 @@ function weather(obj) {
 	weatherCond.appendChild(img);
 	weatherCond.appendChild(weatherHeader);
 }
+
+// ====================================
+// LOCAL STORAGE FOR .CATCH()
+// ====================================
 
 function loadCache() {
 	cityName.textContent = localStorage.getItem("cityName");
