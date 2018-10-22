@@ -23,9 +23,9 @@ const mapContainer = document.querySelector("[data-map]");
 // const exifUrl = `https://api.flickr.com/services/rest/?method=flickr.photos.getExif&api_key=${flickKey}&photo_id=${photoID}&format=json&nojsoncallback=1`;
 
 
-// ===================================
+// ===================================================================
 // What to do when the search for is submitted
-// ===================================
+// ===================================================================
 function handleSubmit(event) {
 	event.preventDefault();
 	console.log("Submit successful.");
@@ -38,9 +38,9 @@ function handleSubmit(event) {
 
 searchForm.addEventListener("submit", handleSubmit);
 
-// ===================================
+// ======================================================================
 // retrieves images, calls functions to manipulate data and draw to screen
-// ===================================
+// ======================================================================
 
 function getPhotos(userSearch) {
 	fetch(
@@ -54,18 +54,18 @@ function getPhotos(userSearch) {
 
 
 
-// ===================================
+// ======================================================================
 // gets location as promises
-// ===================================
+// ======================================================================
 function getLocation(object) {
 	return fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=${flickKey}&photo_id=${object.id}&format=json&nojsoncallback=1`)
 		.then(r => r.json())
 		.then(k => k.photo.location);
 
 }
-// ===================================
+// ======================================================================
 // gets images and assigns locations 
-// ===================================
+// ======================================================================
 
 function getPhotoStats(obj) {
 	let imagesArray = obj.photo;
@@ -101,4 +101,19 @@ function drawImages(arr) {
 	}
 }
 
+let map;
+function initMap() {
+	map = new google.maps.Map(mapContainer, {
+		center: { lat: -34.397, lng: 150.644 },
+		zoom: 8
+	});
+}
 
+function addMarker(object) {
+	let LatLng = {
+		'lat': object.location.latitude,
+		'long': object.location.longitude
+	};
+	map.center = LatLng;
+	map.zoom = 8;
+}

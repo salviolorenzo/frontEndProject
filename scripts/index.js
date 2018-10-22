@@ -2,6 +2,7 @@
 // FIRST DRAFT
 // NO LONGER BEING USED
 // ====================================
+
 // change landing photo on click
 const landingImage = document.querySelector("[data-landing]");
 const gallery = document.querySelector("[data-gallery]");

@@ -75,7 +75,7 @@ header nav li:hover {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
-	align-items: center;
+	align-items: flex-start;
 }
 
 .gallery-hidden {
@@ -129,7 +129,7 @@ header nav li:hover {
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	min-height: 500px;
+	
 }
 
 .map-weather-hidden {
@@ -137,13 +137,14 @@ header nav li:hover {
 }
 
 .map {
-	height: 100%;
-	max-width: 49%;
+	width: 100%;
+	min-height: 300px;
 }
 
 .weather {
+	min-height: 300px;
 	height: 100%;
-	max-width: 49%;
+	width: 100%;
 }
 
 footer {
